@@ -9,9 +9,7 @@ class Function:
 		#print "My args:", self.args
 		if args:
 			for arg in args:
-				argn = args.index(arg)
-				argName = self.args[argn]
-				locs[argName] = arg
+				locs[self.args[args.index(arg)] = arg
 		for line in self.text:
 			execute(line)
 def array_remove_element(array, element):
