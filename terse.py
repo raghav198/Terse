@@ -6,7 +6,7 @@ class Function:
 		self.text = list()
 		self.args = list()
 	def call(self, args):
-		#print "My args:", self.args
+		"""call the function"""
 		if args:
 			for arg in args:
 				locs[self.args[args.index(arg)] = arg
@@ -47,7 +47,7 @@ def val(word):
 		except Exception:
 			return word
 def decl(args):
-	#print "declaring {variable}".format(variable=args[0])
+	#Declare a global variable
 	globs[args[0].replace("&", "@")] = True
 def push(args):
 	stack.append(prev)
@@ -97,35 +97,31 @@ def execute(linet):
 	global fName
 	global funcs
 	line = array_remove_element(linet.split("\t"), "")
-	#print stack, "s"
-	#print prev, "p"
 	command = line[0]
-	#print command
-	#print command[0]
 	if command in subs:
+		#Calling a subroutine (takes no arguments)
 		subs[command].call(None)
 		return
 	if command == "push":
 		push(prev)
 		return
 	args = string(line[1]).split(" ")
-	#print args[0]
 	for arg in args:
 		args[args.index(arg)] = val(arg)
 	if command[0] == "@":
-		#print "defining {variable}".format(variable=command)
+		#We are defining a global variable
 		globs[command] = args[0]
 		return
 	if command in funcs:
-		#print "calling ", command, "with", args
+		#Calling a function
 		funcs[command].call(args)
 		return
 	if command in ("eq", "lt", "gt"):
 		global executing
-		#print "if!!"
+		#Conditional statement!
 		executing = eval(command)(args)
-		#print executing
 	if command == "func":
+		#define a function
 		global fName
 		global inFunction
 		inFunction = True
@@ -138,8 +134,6 @@ def execute(linet):
 		else:
 			subs[fName] = Function()
 			subs[fName].args = fargs
-		#print "Function: ", fName
-		#print "Args: ", fargs
 		return
 	eval(command)(args)
 for line in lines:
@@ -148,23 +142,24 @@ for line in lines:
 		continue
 	if line and line[0] != ";":
 		if executing:
+			#Either no if block, or condition is true
 			if not inFunction:
 				try:
 					execute(line)
 				except Exception as e:
+					#report errors with line numbers
 					print "Error @ line ", lines.index(line) + 1
 					print e
 					raise SystemExit()
-				#execute(line)
 			else:
+				#adding lines to a function
 				if line != "end":
+					#still inside function body
 					try:
 						funcs[fName].text.append(line)
 					except KeyError:
+						#No function of that name, try it in Subroutines!
 						subs[fName].text.append(line)
 				else:
+					#Line is "end", exit function!
 					inFunction = False
-					#print "Function text: ", funcs[fName].text
-		else:
-			pass
-			#print "Not executing!"
