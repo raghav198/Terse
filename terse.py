@@ -1,3 +1,14 @@
+################################
+################################
+####PLEASE NOTE THAT THIS#######
+###########IS NOT THE ##########
+########MOST UPDATED ###########
+#########VERSION OF THE#########
+#######TERSE INTERPRETER########
+################################
+################################
+
+
 text = "".join(open(raw_input("Filename? ")))
 lines = text.split("\n")
 executing = True
