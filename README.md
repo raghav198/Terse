@@ -13,7 +13,7 @@ executed! Writing the source file is probably the hardest part.
 Terse Instructions
 ==================
 
-==Basic Syntax==
+<h2>Basic Syntax</h2>
 
 Terse is a very small interpreted language whose syntax resembles that of assembly. There are no datatypes, but types are inferred from usage (i.e., during addition integer or float is inferred)
 A Terse program consists of lines that each contain two columns: the command and the arguments.
