@@ -13,7 +13,7 @@ executed! Writing the source file is probably the hardest part.
 Terse Instructions
 ==================
 
-<h2>Basic Syntax</h2>
+<<h2>Basic Syntax</h2>
 
 Terse is a very small interpreted language whose syntax resembles that of assembly. There are no datatypes, but types are inferred from usage (i.e., during addition integer or float is inferred)
 A Terse program consists of lines that each contain two columns: the command and the arguments.
@@ -122,5 +122,53 @@ prints out:
 2
 3
 4
+<h2>OOP</h2>
+Terse also has some simple OOP capabilities. 
+<h3>Objects</h3>
+Objects are defined using the <code>obj</code> keyword. Any methods or variables are defined between the object declaration 
+and the <code>end</code>. Please note that no <code>decl</code> keyword is necessary when defining object variables. For example:
+<pre>
+obj    Me
+@name  "Timothy"
+func   setName &newValue
+@name  $newValue
+end
+end
+</pre>
+declares an object called "Me", and gives it one property (@name) and one method (a setter for @name).
+
+The following example illustrates how to access members of a class:
+<pre>
+out    Me->@name
+Me->setName    "Timmy"
+out    Me->@name
+</pre>
+prints out "Timothy Timmy"
+<h3>Classes</h3>
+There is no direct method of creating a class in Terse. However, objects can be copied as templates, simulating this feature.
+For example, the following code defines a Person "class", creates two "instances", and prints out their data.
+
+<pre>
+obj    Person
+@name  ""
+func   setName &v
+@name  $v
+end
+end
+~Timmy Person
+~Timothy    Person
+Timmy->setName    "Timmy"
+Timothy->setName  "Timothy"
+out    Timmy->@name<>
+out    Timothy->@name<>
+</pre>
+
+This would print out: 
+
+Timmy
+
+Timothy
+
+Use the "~" prefix to copy an object.
 
 This description can also be found at http://www.esolangs.org/wiki/Terse
