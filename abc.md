@@ -49,11 +49,11 @@ would print "Tim"
 Arrays are also possible in Terse. To create a "range" array, use a "hashtag". For example, <pre>#4</pre> would produce: [0, 1, 2, 3]
 To create any other array, just set the array values as the parameters.
 
-<pre>
-decl      &myArray
-@myArray  1 4 3 7 8
-out       @myArray
-</pre>
+
+    decl      &myArray
+    @myArray  1 4 3 7 8
+    out       @myArray
+
 prints out [1, 4, 3, 7, 8]
 
 To access an element of an array, use the colon (":"). So, #5:3 would yield [0, 1, 2, 3, 4][3] which is 3.
